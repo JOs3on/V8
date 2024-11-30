@@ -1,0 +1,36 @@
+pub fn swap(
+    amm_program: &Pubkey,
+    amm_keys: &AmmKeys,
+    market_keys: &openbook::MarketPubkeys,
+    user_owner: &Pubkey,
+    user_source: &Pubkey,
+    user_destination: &Pubkey,
+    amount_specified: u64,
+    other_amount_threshold: u64,
+    swap_base_in: bool,
+) -> Result<Instruction> {
+    let swap_instruction: Instruction = if swap_base_in {
+        raydium_amm::instruction::swap_base_in(
+            &amm_program,
+            &amm_keys.amm_pool,
+            &amm_keys.amm_authority,
+            amm_open_orders: &amm_keys.amm_open_order,
+            &amm_keys.amm_coin_vault,
+            &amm_keys.amm_pc_vault,
+            &amm_keys.market_program,
+            &amm_keys.market,
+            market_bids: &market_keys.bids,
+            market_asks: &market_keys.asks,
+            market_event_queue: &market_keys.event_q,
+            market_coin_vault: &market_keys.coin_vault,
+            market_pc_vault: &market_keys.pc_vault,
+            market_vault_signer: &market_keys.vault_signer_key,
+            user_token_source: user_source,
+            user_token_destination: user_destination,
+            user_source_owner: user_owner,
+            amount_in: amount_specified,
+            minimum_amount_out: other_amount_threshold,
+        )?
+    };
+    // ...
+}
